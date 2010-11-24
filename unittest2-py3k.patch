@@ -46,6 +46,15 @@ Index: unittest2-py3k/unittest2/test/test_discovery.py
  
  
  class TestableTestProgram(unittest.TestProgram):
+@@ -373,7 +373,7 @@
+             self.assertEqual(start_dir, expectedPath)
+             return tests
+         loader._find_tests = _find_tests
+-        suite = loader.discover('unittest.test')
++        suite = loader.discover('unittest2.test')
+         self.assertTrue(self.wasRun)
+         self.assertEqual(suite._tests, tests)
+ 
 Index: unittest2-py3k/unittest2/test/test_program.py
 ===================================================================
 --- unittest2-py3k/unittest2/test/test_program.py	(revision 86724)
