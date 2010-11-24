@@ -81,15 +81,25 @@ Index: unittest2-py3k/unittest2/test/test_runner.py
 ===================================================================
 --- unittest2-py3k/unittest2/test/test_runner.py	(revision 86724)
 +++ unittest2-py3k/unittest2/test/test_runner.py	(working copy)
-@@ -1,7 +1,7 @@
+@@ -1,7 +1,8 @@
  import io
  import pickle
++import sys
  
 -import unittest
 +import unittest2 as unittest
  
  from .support import LoggingResult, ResultWithNoStartTestRunStopTestRun
  
+@@ -221,6 +222,8 @@
+         expected = ['startTestRun', 'stopTestRun']
+         self.assertEqual(events, expected)
+ 
++    @unittest.skipIf(sys.version_info[:2] < (3, 2), 
++                      "io.StringIO() not pickleable until Python 3.2")
+     def test_pickle_unpickle(self):
+         # Issue #7197: a TextTestRunner should be (un)pickleable. This is
+         # required by test_multiprocessing under Windows (in verbose mode).
 Index: unittest2-py3k/unittest2/test/test_case.py
 ===================================================================
 --- unittest2-py3k/unittest2/test/test_case.py	(revision 86724)
