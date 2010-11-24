@@ -10,6 +10,9 @@ $(LIB):
 	# $(MAKE) patch
 
 patch: $(LIB)
+	test -f $(LIB)/compatibility.py && $(RM) $(LIB)/compatibility.py
+	touch $(LIB)/compatibility.py
+	svn add $(LIB)/compatibility.py
 	cat $(PATCH_FILE)|patch -p0
 
 unittest:
