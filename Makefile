@@ -10,7 +10,7 @@ $(LIB):
 	# $(MAKE) patch
 
 patch: $(LIB)
-	cd $(LIB) && cat ../../$(PATCH_FILE)|patch -p0
+	cat $(PATCH_FILE)|patch -p0
 
 unittest:
 	svn co $(UNITTEST_SVN_URL)
