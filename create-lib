@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e;
+
+# Currently pointing at 3.2 version of unittest
+UNITTEST_SVN_URL=http://svn.python.org/projects/python/branches/py3k/Lib/unittest
+
+svn co $UNITTEST_SVN_URL unittest2-py3k/unittest2
+touch unittest2-py3k/unittest2/compatibility.py
+svn add unittest2-py3k/unittest2/compatibility.py
+cat unittest2-py3k.patch|patch -p0
+
+python3.1 discover.py -s unittest2-py3k
+python3.0 discover.py -s unittest2-py3k
+
+
