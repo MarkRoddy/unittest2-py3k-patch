@@ -1,0 +1,181 @@
+Index: unittest2-py3k/unittest2/test/test_suite.py
+===================================================================
+--- unittest2-py3k/unittest2/test/test_suite.py	(revision 86724)
++++ unittest2-py3k/unittest2/test/test_suite.py	(working copy)
+@@ -1,4 +1,4 @@
+-import unittest
++import unittest2 as unittest
+ 
+ import sys
+ from .support import LoggingResult, TestEquality
+Index: unittest2-py3k/unittest2/test/test_assertions.py
+===================================================================
+--- unittest2-py3k/unittest2/test/test_assertions.py	(revision 86724)
++++ unittest2-py3k/unittest2/test/test_assertions.py	(working copy)
+@@ -1,6 +1,6 @@
+ import datetime
+ 
+-import unittest
++import unittest2 as unittest
+ 
+ 
+ class Test_Assertions(unittest.TestCase):
+Index: unittest2-py3k/unittest2/test/test_loader.py
+===================================================================
+--- unittest2-py3k/unittest2/test/test_loader.py	(revision 86724)
++++ unittest2-py3k/unittest2/test/test_loader.py	(working copy)
+@@ -2,7 +2,7 @@
+ import types
+ 
+ 
+-import unittest
++import unittest2 as unittest
+ 
+ 
+ class Test_TestLoader(unittest.TestCase):
+Index: unittest2-py3k/unittest2/test/test_discovery.py
+===================================================================
+--- unittest2-py3k/unittest2/test/test_discovery.py	(revision 86724)
++++ unittest2-py3k/unittest2/test/test_discovery.py	(working copy)
+@@ -2,7 +2,7 @@
+ import re
+ import sys
+ 
+-import unittest
++import unittest2 as unittest
+ 
+ 
+ class TestableTestProgram(unittest.TestProgram):
+Index: unittest2-py3k/unittest2/test/test_program.py
+===================================================================
+--- unittest2-py3k/unittest2/test/test_program.py	(revision 86724)
++++ unittest2-py3k/unittest2/test/test_program.py	(working copy)
+@@ -2,7 +2,7 @@
+ 
+ import os
+ import sys
+-import unittest
++import unittest2 as unittest
+ 
+ 
+ class Test_TestProgram(unittest.TestCase):
+Index: unittest2-py3k/unittest2/test/test_runner.py
+===================================================================
+--- unittest2-py3k/unittest2/test/test_runner.py	(revision 86724)
++++ unittest2-py3k/unittest2/test/test_runner.py	(working copy)
+@@ -1,7 +1,7 @@
+ import io
+ import pickle
+ 
+-import unittest
++import unittest2 as unittest
+ 
+ from .support import LoggingResult, ResultWithNoStartTestRunStopTestRun
+ 
+Index: unittest2-py3k/unittest2/test/test_case.py
+===================================================================
+--- unittest2-py3k/unittest2/test/test_case.py	(revision 86724)
++++ unittest2-py3k/unittest2/test/test_case.py	(working copy)
+@@ -9,7 +9,7 @@
+ from copy import deepcopy
+ from test import support
+ 
+-import unittest
++import unittest2 as unittest
+ 
+ from .support import (
+     TestEquality, TestHashing, LoggingResult,
+Index: unittest2-py3k/unittest2/test/support.py
+===================================================================
+--- unittest2-py3k/unittest2/test/support.py	(revision 86724)
++++ unittest2-py3k/unittest2/test/support.py	(working copy)
+@@ -1,4 +1,4 @@
+-import unittest
++import unittest2 as unittest
+ 
+ 
+ class TestEquality(object):
+Index: unittest2-py3k/unittest2/test/test_result.py
+===================================================================
+--- unittest2-py3k/unittest2/test/test_result.py	(revision 86724)
++++ unittest2-py3k/unittest2/test/test_result.py	(working copy)
+@@ -5,7 +5,7 @@
+ from test import support
+ 
+ import traceback
+-import unittest
++import unittest2 as unittest
+ 
+ 
+ class Test_TestResult(unittest.TestCase):
+Index: unittest2-py3k/unittest2/test/test_functiontestcase.py
+===================================================================
+--- unittest2-py3k/unittest2/test/test_functiontestcase.py	(revision 86724)
++++ unittest2-py3k/unittest2/test/test_functiontestcase.py	(working copy)
+@@ -1,4 +1,4 @@
+-import unittest
++import unittest2 as unittest
+ 
+ from .support import LoggingResult
+ 
+Index: unittest2-py3k/unittest2/test/test_setups.py
+===================================================================
+--- unittest2-py3k/unittest2/test/test_setups.py	(revision 86724)
++++ unittest2-py3k/unittest2/test/test_setups.py	(working copy)
+@@ -1,7 +1,7 @@
+ import io
+ import sys
+ 
+-import unittest
++import unittest2 as unittest
+ 
+ 
+ def resultFactory(*_):
+Index: unittest2-py3k/unittest2/test/test_break.py
+===================================================================
+--- unittest2-py3k/unittest2/test/test_break.py	(revision 86724)
++++ unittest2-py3k/unittest2/test/test_break.py	(working copy)
+@@ -5,7 +5,7 @@
+ import signal
+ import weakref
+ 
+-import unittest
++import unittest2 as unittest
+ 
+ 
+ @unittest.skipUnless(hasattr(os, 'kill'), "Test requires os.kill")
+Index: unittest2-py3k/unittest2/test/test_skipping.py
+===================================================================
+--- unittest2-py3k/unittest2/test/test_skipping.py	(revision 86724)
++++ unittest2-py3k/unittest2/test/test_skipping.py	(working copy)
+@@ -1,4 +1,4 @@
+-import unittest
++import unittest2 as unittest
+ 
+ from .support import LoggingResult
+ 
+Index: unittest2-py3k/unittest2/__init__.py
+===================================================================
+--- unittest2-py3k/unittest2/__init__.py	(revision 86724)
++++ unittest2-py3k/unittest2/__init__.py	(working copy)
+@@ -9,9 +9,9 @@
+ 
+ Simple usage:
+ 
+-    import unittest
++    import unittest2
+ 
+-    class IntegerArithmenticTestCase(unittest.TestCase):
++    class IntegerArithmenticTestCase(unittest2.TestCase):
+         def testAdd(self):  ## test method names begin 'test*'
+             self.assertEqual((1 + 2), 3)
+             self.assertEqual(0 + 1, 1)
+@@ -20,7 +20,7 @@
+             self.assertEqual((5 * 8), 40)
+ 
+     if __name__ == '__main__':
+-        unittest.main()
++        unittest2.main()
+ 
+ Further information is available in the bundled documentation, and from
+ 
