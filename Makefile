@@ -16,8 +16,8 @@ unittest:
 	svn co $(UNITTEST_SVN_URL)
 
 test: $(LIB)
-	python3.0 discover.py -s unittest2-py3k
 	python3.1 discover.py -s unittest2-py3k
+	python3.0 discover.py -s unittest2-py3k
 
 revert-patch:
 	svn revert -R $(LIB)
