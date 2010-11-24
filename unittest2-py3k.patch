@@ -144,25 +144,133 @@ Index: unittest2-py3k/unittest2/test/support.py
 ===================================================================
 --- unittest2-py3k/unittest2/test/support.py	(revision 86724)
 +++ unittest2-py3k/unittest2/test/support.py	(working copy)
-@@ -1,4 +1,4 @@
+@@ -1,6 +1,11 @@
 -import unittest
 +import unittest2 as unittest
  
++import contextlib
++import re
++import sys
++import warnings
  
++
  class TestEquality(object):
+     """Used as a mixin for TestCase"""
+ 
+@@ -116,3 +121,86 @@
+ 
+     def wasSuccessful(self):
+         return True
++
++class WarningsRecorder(object):
++    """Convenience wrapper for the warnings list returned on
++       entry to the warnings.catch_warnings() context manager.
++    """
++    def __init__(self, warnings_list):
++        self._warnings = warnings_list
++        self._last = 0
++
++    def __getattr__(self, attr):
++        if len(self._warnings) > self._last:
++            return getattr(self._warnings[-1], attr)
++        elif attr in warnings.WarningMessage._WARNING_DETAILS:
++            return None
++        raise AttributeError("%r has no attribute %r" % (self, attr))
++
++    @property
++    def warnings(self):
++        return self._warnings[self._last:]
++
++    def reset(self):
++        self._last = len(self._warnings)
++
++def _filterwarnings(filters, quiet=False):
++    """Catch the warnings, then check if all the expected
++    warnings have been raised and re-raise unexpected warnings.
++    If 'quiet' is True, only re-raise the unexpected warnings.
++    """
++    # Clear the warning registry of the calling module
++    # in order to re-raise the warnings.
++    frame = sys._getframe(2)
++    registry = frame.f_globals.get('__warningregistry__')
++    if registry:
++        registry.clear()
++    with warnings.catch_warnings(record=True) as w:
++        # Set filter "always" to record all warnings.  Because
++        # test_warnings swap the module, we need to look up in
++        # the sys.modules dictionary.
++        sys.modules['warnings'].simplefilter("always")
++        yield WarningsRecorder(w)
++    # Filter the recorded warnings
++    reraise = [warning.message for warning in w]
++    missing = []
++    for msg, cat in filters:
++        seen = False
++        for exc in reraise[:]:
++            message = str(exc)
++            # Filter out the matching messages
++            if (re.match(msg, message, re.I) and
++                issubclass(exc.__class__, cat)):
++                seen = True
++                reraise.remove(exc)
++        if not seen and not quiet:
++            # This filter caught nothing
++            missing.append((msg, cat.__name__))
++    if reraise:
++        raise AssertionError("unhandled warning %r" % reraise[0])
++    if missing:
++        raise AssertionError("filter (%r, %s) did not catch any warning" %
++                             missing[0])
++
++@contextlib.contextmanager
++def check_warnings(*filters, **kwargs):
++    """Context manager to silence warnings.
++
++    Accept 2-tuples as positional arguments:
++        ("message regexp", WarningCategory)
++
++    Optional argument:
++     - if 'quiet' is True, it does not fail if a filter catches nothing
++        (default True without argument,
++         default False if some filters are defined)
++
++    Without argument, it defaults to:
++        check_warnings(("", Warning), quiet=True)
++    """
++    quiet = kwargs.get('quiet')
++    if not filters:
++        filters = (("", Warning),)
++        # Preserve backward compatibility
++        if quiet is None:
++            quiet = True
++    return _filterwarnings(filters, quiet)
 Index: unittest2-py3k/unittest2/test/test_result.py
 ===================================================================
 --- unittest2-py3k/unittest2/test/test_result.py	(revision 86724)
 +++ unittest2-py3k/unittest2/test/test_result.py	(working copy)
-@@ -5,7 +5,7 @@
- from test import support
+@@ -2,11 +2,10 @@
+ import sys
+ import textwrap
  
+-from test import support
+-
  import traceback
 -import unittest
 +import unittest2 as unittest
  
++from .support import check_warnings
  
  class Test_TestResult(unittest.TestCase):
+     # Note: there are not separate tests for TestResult.wasSuccessful(),
+@@ -313,7 +312,7 @@
+ class Test_OldTestResult(unittest.TestCase):
+ 
+     def assertOldResultWarning(self, test, failures):
+-        with support.check_warnings(("TestResult has no add.+ method,",
++        with check_warnings(("TestResult has no add.+ method,",
+                                      RuntimeWarning)):
+             result = OldResult()
+             test.run(result)
 Index: unittest2-py3k/unittest2/test/test_functiontestcase.py
 ===================================================================
 --- unittest2-py3k/unittest2/test/test_functiontestcase.py	(revision 86724)
