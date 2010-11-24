@@ -191,6 +191,19 @@ Index: unittest2-py3k/unittest2/test/test_skipping.py
  
  from .support import LoggingResult
  
+Index: unittest2-py3k/unittest2/suite.py
+===================================================================
+--- unittest2-py3k/unittest2/suite.py	(revision 86724)
++++ unittest2-py3k/unittest2/suite.py	(working copy)
+@@ -38,7 +38,7 @@
+     def addTest(self, test):
+         # sanity checks
+         if not hasattr(test, '__call__'):
+-            raise TypeError("{} is not callable".format(repr(test)))
++            raise TypeError("{0} is not callable".format(repr(test)))
+         if isinstance(test, type) and issubclass(test,
+                                                  (case.TestCase, TestSuite)):
+             raise TypeError("TestCases and TestSuites must be instantiated "
 Index: unittest2-py3k/unittest2/compatibility.py
 ===================================================================
 --- unittest2-py3k/unittest2/compatibility.py	(revision 0)
