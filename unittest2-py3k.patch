@@ -33,6 +33,15 @@ Index: unittest2-py3k/unittest2/test/test_loader.py
  
  
  class Test_TestLoader(unittest.TestCase):
+@@ -907,7 +907,7 @@
+         # We're going to try to load this module as a side-effect, so it
+         # better not be loaded before we try.
+         #
+-        module_name = 'unittest.test.dummy'
++        module_name = 'unittest2.test.dummy'
+         sys.modules.pop(module_name, None)
+ 
+         loader = unittest.TestLoader()
 Index: unittest2-py3k/unittest2/test/test_discovery.py
 ===================================================================
 --- unittest2-py3k/unittest2/test/test_discovery.py	(revision 86724)
