@@ -7,10 +7,10 @@ LIB=unittest2-py3k/unittest2
 
 $(LIB):
 	svn co $(UNITTEST_SVN_URL)  $(LIB)
-	# $(MAKE) patch
+	$(MAKE) patch
 
 patch: $(LIB)
-	test -f $(LIB)/compatibility.py && $(RM) $(LIB)/compatibility.py
+	if [ -f $(LIB)/compatibility.py ]; then $(RM) $(LIB)/compatibility.py; fi
 	touch $(LIB)/compatibility.py
 	svn add $(LIB)/compatibility.py
 	cat $(PATCH_FILE)|patch -p0
