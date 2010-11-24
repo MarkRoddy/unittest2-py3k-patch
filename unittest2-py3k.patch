@@ -154,6 +154,27 @@ Index: unittest2-py3k/unittest2/test/test_skipping.py
  
  from .support import LoggingResult
  
+Index: unittest2-py3k/unittest2/case.py
+===================================================================
+--- unittest2-py3k/unittest2/case.py	(revision 86724)
++++ unittest2-py3k/unittest2/case.py	(working copy)
+@@ -6,6 +6,7 @@
+ import pprint
+ import re
+ import warnings
++import unittest
+ 
+ from . import result
+ from .util import (strclass, safe_repr, sorted_list_difference,
+@@ -212,7 +213,7 @@
+         return default
+ 
+ 
+-class TestCase(object):
++class TestCase(unittest.TestCase):
+     """A class whose instances are single test cases.
+ 
+     By default, the test code itself should be placed in a method named
 Index: unittest2-py3k/unittest2/__init__.py
 ===================================================================
 --- unittest2-py3k/unittest2/__init__.py	(revision 86724)
