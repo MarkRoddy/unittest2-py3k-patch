@@ -29,5 +29,5 @@ update-patch:
 	svn diff $(LIB) > $(PATCH_FILE)
 
 clean:
-	$(RM) -r unittest2
+	$(RM) -r $(LIB)
 
