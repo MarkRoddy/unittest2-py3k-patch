@@ -59,6 +59,24 @@ Index: unittest2-py3k/unittest2/test/test_program.py
  
  
  class Test_TestProgram(unittest.TestCase):
+@@ -19,7 +19,7 @@
+             self.assertEqual(start_dir, expectedPath)
+             return tests
+         loader._find_tests = _find_tests
+-        suite = loader.discover('unittest.test')
++        suite = loader.discover('unittest2.test')
+         self.assertTrue(self.wasRun)
+         self.assertEqual(suite._tests, tests)
+ 
+@@ -231,7 +231,7 @@
+         self.assertIs(program.result, RESULT)
+ 
+     def testCatchBreakInstallsHandler(self):
+-        module = sys.modules['unittest.main']
++        module = sys.modules['unittest2.main']
+         original = module.installHandler
+         def restore():
+             module.installHandler = original
 Index: unittest2-py3k/unittest2/test/test_runner.py
 ===================================================================
 --- unittest2-py3k/unittest2/test/test_runner.py	(revision 86724)
