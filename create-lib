@@ -10,7 +10,7 @@ touch unittest2/compatibility.py
 svn add unittest2/compatibility.py
 cat unittest2-py3k.patch|patch -p0
 
-python3.1 unit2.py unittest2
-python3.0 unit2.py unittest2
+python3.1 unit2.py discover unittest2
+python3.0 unit2.py discover unittest2
 
 
