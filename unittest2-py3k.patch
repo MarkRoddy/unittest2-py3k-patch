@@ -1,6 +1,6 @@
 Index: unittest2/test/test_suite.py
 ===================================================================
---- unittest2/test/test_suite.py	(revision 86724)
+--- unittest2/test/test_suite.py	(revision 87478)
 +++ unittest2/test/test_suite.py	(working copy)
 @@ -1,4 +1,4 @@
 -import unittest
@@ -10,7 +10,7 @@ Index: unittest2/test/test_suite.py
  from .support import LoggingResult, TestEquality
 Index: unittest2/test/test_assertions.py
 ===================================================================
---- unittest2/test/test_assertions.py	(revision 86724)
+--- unittest2/test/test_assertions.py	(revision 87478)
 +++ unittest2/test/test_assertions.py	(working copy)
 @@ -1,6 +1,6 @@
  import datetime
@@ -22,7 +22,7 @@ Index: unittest2/test/test_assertions.py
  class Test_Assertions(unittest.TestCase):
 Index: unittest2/test/test_loader.py
 ===================================================================
---- unittest2/test/test_loader.py	(revision 86724)
+--- unittest2/test/test_loader.py	(revision 87478)
 +++ unittest2/test/test_loader.py	(working copy)
 @@ -2,7 +2,7 @@
  import types
@@ -53,7 +53,7 @@ Index: unittest2/test/test_loader.py
          loader = unittest.TestLoader()
 Index: unittest2/test/test_discovery.py
 ===================================================================
---- unittest2/test/test_discovery.py	(revision 86724)
+--- unittest2/test/test_discovery.py	(revision 87478)
 +++ unittest2/test/test_discovery.py	(working copy)
 @@ -2,7 +2,7 @@
  import re
@@ -64,7 +64,7 @@ Index: unittest2/test/test_discovery.py
  
  
  class TestableTestProgram(unittest.TestProgram):
-@@ -373,7 +373,7 @@
+@@ -386,7 +386,7 @@
              self.assertEqual(start_dir, expectedPath)
              return tests
          loader._find_tests = _find_tests
@@ -75,7 +75,7 @@ Index: unittest2/test/test_discovery.py
  
 Index: unittest2/test/test_program.py
 ===================================================================
---- unittest2/test/test_program.py	(revision 86724)
+--- unittest2/test/test_program.py	(revision 87478)
 +++ unittest2/test/test_program.py	(working copy)
 @@ -2,7 +2,7 @@
  
@@ -95,7 +95,7 @@ Index: unittest2/test/test_program.py
          self.assertTrue(self.wasRun)
          self.assertEqual(suite._tests, tests)
  
-@@ -231,7 +231,7 @@
+@@ -255,7 +255,7 @@
          self.assertIs(program.result, RESULT)
  
      def testCatchBreakInstallsHandler(self):
@@ -106,19 +106,18 @@ Index: unittest2/test/test_program.py
              module.installHandler = original
 Index: unittest2/test/test_runner.py
 ===================================================================
---- unittest2/test/test_runner.py	(revision 86724)
+--- unittest2/test/test_runner.py	(revision 87478)
 +++ unittest2/test/test_runner.py	(working copy)
-@@ -1,7 +1,8 @@
- import io
+@@ -4,7 +4,7 @@
  import pickle
-+import sys
+ import subprocess
  
 -import unittest
 +import unittest2 as unittest
  
  from .support import LoggingResult, ResultWithNoStartTestRunStopTestRun
  
-@@ -221,6 +222,8 @@
+@@ -222,6 +222,8 @@
          expected = ['startTestRun', 'stopTestRun']
          self.assertEqual(events, expected)
  
@@ -129,7 +128,7 @@ Index: unittest2/test/test_runner.py
          # required by test_multiprocessing under Windows (in verbose mode).
 Index: unittest2/test/test_case.py
 ===================================================================
---- unittest2/test/test_case.py	(revision 86724)
+--- unittest2/test/test_case.py	(revision 87478)
 +++ unittest2/test/test_case.py	(working copy)
 @@ -9,7 +9,7 @@
  from copy import deepcopy
@@ -142,7 +141,7 @@ Index: unittest2/test/test_case.py
      TestEquality, TestHashing, LoggingResult,
 Index: unittest2/test/support.py
 ===================================================================
---- unittest2/test/support.py	(revision 86724)
+--- unittest2/test/support.py	(revision 87478)
 +++ unittest2/test/support.py	(working copy)
 @@ -1,6 +1,11 @@
 -import unittest
@@ -246,7 +245,7 @@ Index: unittest2/test/support.py
 +    return _filterwarnings(filters, quiet)
 Index: unittest2/test/test_result.py
 ===================================================================
---- unittest2/test/test_result.py	(revision 86724)
+--- unittest2/test/test_result.py	(revision 87478)
 +++ unittest2/test/test_result.py	(working copy)
 @@ -2,11 +2,10 @@
  import sys
@@ -273,7 +272,7 @@ Index: unittest2/test/test_result.py
              test.run(result)
 Index: unittest2/test/test_functiontestcase.py
 ===================================================================
---- unittest2/test/test_functiontestcase.py	(revision 86724)
+--- unittest2/test/test_functiontestcase.py	(revision 87478)
 +++ unittest2/test/test_functiontestcase.py	(working copy)
 @@ -1,4 +1,4 @@
 -import unittest
@@ -283,7 +282,7 @@ Index: unittest2/test/test_functiontestcase.py
  
 Index: unittest2/test/test_setups.py
 ===================================================================
---- unittest2/test/test_setups.py	(revision 86724)
+--- unittest2/test/test_setups.py	(revision 87478)
 +++ unittest2/test/test_setups.py	(working copy)
 @@ -1,7 +1,7 @@
  import io
@@ -296,7 +295,7 @@ Index: unittest2/test/test_setups.py
  def resultFactory(*_):
 Index: unittest2/test/test_break.py
 ===================================================================
---- unittest2/test/test_break.py	(revision 86724)
+--- unittest2/test/test_break.py	(revision 87478)
 +++ unittest2/test/test_break.py	(working copy)
 @@ -5,7 +5,7 @@
  import signal
@@ -309,7 +308,7 @@ Index: unittest2/test/test_break.py
  @unittest.skipUnless(hasattr(os, 'kill'), "Test requires os.kill")
 Index: unittest2/test/test_skipping.py
 ===================================================================
---- unittest2/test/test_skipping.py	(revision 86724)
+--- unittest2/test/test_skipping.py	(revision 87478)
 +++ unittest2/test/test_skipping.py	(working copy)
 @@ -1,4 +1,4 @@
 -import unittest
@@ -319,7 +318,7 @@ Index: unittest2/test/test_skipping.py
  
 Index: unittest2/suite.py
 ===================================================================
---- unittest2/suite.py	(revision 86724)
+--- unittest2/suite.py	(revision 87478)
 +++ unittest2/suite.py	(working copy)
 @@ -38,7 +38,7 @@
      def addTest(self, test):
@@ -362,17 +361,17 @@ Index: unittest2/compatibility.py
 +
 Index: unittest2/case.py
 ===================================================================
---- unittest2/case.py	(revision 86724)
+--- unittest2/case.py	(revision 87478)
 +++ unittest2/case.py	(working copy)
-@@ -6,6 +6,7 @@
- import pprint
+@@ -7,6 +7,7 @@
  import re
  import warnings
+ import collections
 +import unittest
  
  from . import result
  from .util import (strclass, safe_repr, sorted_list_difference,
-@@ -212,7 +213,7 @@
+@@ -223,7 +224,7 @@
          return default
  
  
@@ -383,7 +382,7 @@ Index: unittest2/case.py
      By default, the test code itself should be placed in a method named
 Index: unittest2/__init__.py
 ===================================================================
---- unittest2/__init__.py	(revision 86724)
+--- unittest2/__init__.py	(revision 87478)
 +++ unittest2/__init__.py	(working copy)
 @@ -9,9 +9,9 @@
  
@@ -408,7 +407,7 @@ Index: unittest2/__init__.py
  
 Index: unittest2/loader.py
 ===================================================================
---- unittest2/loader.py	(revision 86724)
+--- unittest2/loader.py	(revision 87478)
 +++ unittest2/loader.py	(working copy)
 @@ -5,11 +5,12 @@
  import sys
