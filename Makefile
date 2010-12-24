@@ -3,7 +3,7 @@
 UNITTEST_SVN_URL=http://svn.python.org/projects/python/branches/py3k/Lib/unittest
 PATCH_FILE=unittest2-py3k.patch
 
-LIB=unittest2-py3k/unittest2
+LIB=unittest2
 
 $(LIB):
 	svn co $(UNITTEST_SVN_URL)  $(LIB)
