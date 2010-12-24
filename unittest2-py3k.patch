@@ -1,17 +1,17 @@
-Index: unittest2-py3k/unittest2/test/test_suite.py
+Index: unittest2/test/test_suite.py
 ===================================================================
---- unittest2-py3k/unittest2/test/test_suite.py	(revision 86724)
-+++ unittest2-py3k/unittest2/test/test_suite.py	(working copy)
+--- unittest2/test/test_suite.py	(revision 86724)
++++ unittest2/test/test_suite.py	(working copy)
 @@ -1,4 +1,4 @@
 -import unittest
 +import unittest2 as unittest
  
  import sys
  from .support import LoggingResult, TestEquality
-Index: unittest2-py3k/unittest2/test/test_assertions.py
+Index: unittest2/test/test_assertions.py
 ===================================================================
---- unittest2-py3k/unittest2/test/test_assertions.py	(revision 86724)
-+++ unittest2-py3k/unittest2/test/test_assertions.py	(working copy)
+--- unittest2/test/test_assertions.py	(revision 86724)
++++ unittest2/test/test_assertions.py	(working copy)
 @@ -1,6 +1,6 @@
  import datetime
  
@@ -20,10 +20,10 @@ Index: unittest2-py3k/unittest2/test/test_assertions.py
  
  
  class Test_Assertions(unittest.TestCase):
-Index: unittest2-py3k/unittest2/test/test_loader.py
+Index: unittest2/test/test_loader.py
 ===================================================================
---- unittest2-py3k/unittest2/test/test_loader.py	(revision 86724)
-+++ unittest2-py3k/unittest2/test/test_loader.py	(working copy)
+--- unittest2/test/test_loader.py	(revision 86724)
++++ unittest2/test/test_loader.py	(working copy)
 @@ -2,7 +2,7 @@
  import types
  
@@ -51,10 +51,10 @@ Index: unittest2-py3k/unittest2/test/test_loader.py
          sys.modules.pop(module_name, None)
  
          loader = unittest.TestLoader()
-Index: unittest2-py3k/unittest2/test/test_discovery.py
+Index: unittest2/test/test_discovery.py
 ===================================================================
---- unittest2-py3k/unittest2/test/test_discovery.py	(revision 86724)
-+++ unittest2-py3k/unittest2/test/test_discovery.py	(working copy)
+--- unittest2/test/test_discovery.py	(revision 86724)
++++ unittest2/test/test_discovery.py	(working copy)
 @@ -2,7 +2,7 @@
  import re
  import sys
@@ -73,10 +73,10 @@ Index: unittest2-py3k/unittest2/test/test_discovery.py
          self.assertTrue(self.wasRun)
          self.assertEqual(suite._tests, tests)
  
-Index: unittest2-py3k/unittest2/test/test_program.py
+Index: unittest2/test/test_program.py
 ===================================================================
---- unittest2-py3k/unittest2/test/test_program.py	(revision 86724)
-+++ unittest2-py3k/unittest2/test/test_program.py	(working copy)
+--- unittest2/test/test_program.py	(revision 86724)
++++ unittest2/test/test_program.py	(working copy)
 @@ -2,7 +2,7 @@
  
  import os
@@ -104,10 +104,10 @@ Index: unittest2-py3k/unittest2/test/test_program.py
          original = module.installHandler
          def restore():
              module.installHandler = original
-Index: unittest2-py3k/unittest2/test/test_runner.py
+Index: unittest2/test/test_runner.py
 ===================================================================
---- unittest2-py3k/unittest2/test/test_runner.py	(revision 86724)
-+++ unittest2-py3k/unittest2/test/test_runner.py	(working copy)
+--- unittest2/test/test_runner.py	(revision 86724)
++++ unittest2/test/test_runner.py	(working copy)
 @@ -1,7 +1,8 @@
  import io
  import pickle
@@ -127,10 +127,10 @@ Index: unittest2-py3k/unittest2/test/test_runner.py
      def test_pickle_unpickle(self):
          # Issue #7197: a TextTestRunner should be (un)pickleable. This is
          # required by test_multiprocessing under Windows (in verbose mode).
-Index: unittest2-py3k/unittest2/test/test_case.py
+Index: unittest2/test/test_case.py
 ===================================================================
---- unittest2-py3k/unittest2/test/test_case.py	(revision 86724)
-+++ unittest2-py3k/unittest2/test/test_case.py	(working copy)
+--- unittest2/test/test_case.py	(revision 86724)
++++ unittest2/test/test_case.py	(working copy)
 @@ -9,7 +9,7 @@
  from copy import deepcopy
  from test import support
@@ -140,10 +140,10 @@ Index: unittest2-py3k/unittest2/test/test_case.py
  
  from .support import (
      TestEquality, TestHashing, LoggingResult,
-Index: unittest2-py3k/unittest2/test/support.py
+Index: unittest2/test/support.py
 ===================================================================
---- unittest2-py3k/unittest2/test/support.py	(revision 86724)
-+++ unittest2-py3k/unittest2/test/support.py	(working copy)
+--- unittest2/test/support.py	(revision 86724)
++++ unittest2/test/support.py	(working copy)
 @@ -1,6 +1,11 @@
 -import unittest
 +import unittest2 as unittest
@@ -244,10 +244,10 @@ Index: unittest2-py3k/unittest2/test/support.py
 +        if quiet is None:
 +            quiet = True
 +    return _filterwarnings(filters, quiet)
-Index: unittest2-py3k/unittest2/test/test_result.py
+Index: unittest2/test/test_result.py
 ===================================================================
---- unittest2-py3k/unittest2/test/test_result.py	(revision 86724)
-+++ unittest2-py3k/unittest2/test/test_result.py	(working copy)
+--- unittest2/test/test_result.py	(revision 86724)
++++ unittest2/test/test_result.py	(working copy)
 @@ -2,11 +2,10 @@
  import sys
  import textwrap
@@ -271,20 +271,20 @@ Index: unittest2-py3k/unittest2/test/test_result.py
                                       RuntimeWarning)):
              result = OldResult()
              test.run(result)
-Index: unittest2-py3k/unittest2/test/test_functiontestcase.py
+Index: unittest2/test/test_functiontestcase.py
 ===================================================================
---- unittest2-py3k/unittest2/test/test_functiontestcase.py	(revision 86724)
-+++ unittest2-py3k/unittest2/test/test_functiontestcase.py	(working copy)
+--- unittest2/test/test_functiontestcase.py	(revision 86724)
++++ unittest2/test/test_functiontestcase.py	(working copy)
 @@ -1,4 +1,4 @@
 -import unittest
 +import unittest2 as unittest
  
  from .support import LoggingResult
  
-Index: unittest2-py3k/unittest2/test/test_setups.py
+Index: unittest2/test/test_setups.py
 ===================================================================
---- unittest2-py3k/unittest2/test/test_setups.py	(revision 86724)
-+++ unittest2-py3k/unittest2/test/test_setups.py	(working copy)
+--- unittest2/test/test_setups.py	(revision 86724)
++++ unittest2/test/test_setups.py	(working copy)
 @@ -1,7 +1,7 @@
  import io
  import sys
@@ -294,10 +294,10 @@ Index: unittest2-py3k/unittest2/test/test_setups.py
  
  
  def resultFactory(*_):
-Index: unittest2-py3k/unittest2/test/test_break.py
+Index: unittest2/test/test_break.py
 ===================================================================
---- unittest2-py3k/unittest2/test/test_break.py	(revision 86724)
-+++ unittest2-py3k/unittest2/test/test_break.py	(working copy)
+--- unittest2/test/test_break.py	(revision 86724)
++++ unittest2/test/test_break.py	(working copy)
 @@ -5,7 +5,7 @@
  import signal
  import weakref
@@ -307,20 +307,20 @@ Index: unittest2-py3k/unittest2/test/test_break.py
  
  
  @unittest.skipUnless(hasattr(os, 'kill'), "Test requires os.kill")
-Index: unittest2-py3k/unittest2/test/test_skipping.py
+Index: unittest2/test/test_skipping.py
 ===================================================================
---- unittest2-py3k/unittest2/test/test_skipping.py	(revision 86724)
-+++ unittest2-py3k/unittest2/test/test_skipping.py	(working copy)
+--- unittest2/test/test_skipping.py	(revision 86724)
++++ unittest2/test/test_skipping.py	(working copy)
 @@ -1,4 +1,4 @@
 -import unittest
 +import unittest2 as unittest
  
  from .support import LoggingResult
  
-Index: unittest2-py3k/unittest2/suite.py
+Index: unittest2/suite.py
 ===================================================================
---- unittest2-py3k/unittest2/suite.py	(revision 86724)
-+++ unittest2-py3k/unittest2/suite.py	(working copy)
+--- unittest2/suite.py	(revision 86724)
++++ unittest2/suite.py	(working copy)
 @@ -38,7 +38,7 @@
      def addTest(self, test):
          # sanity checks
@@ -330,10 +330,10 @@ Index: unittest2-py3k/unittest2/suite.py
          if isinstance(test, type) and issubclass(test,
                                                   (case.TestCase, TestSuite)):
              raise TypeError("TestCases and TestSuites must be instantiated "
-Index: unittest2-py3k/unittest2/compatibility.py
+Index: unittest2/compatibility.py
 ===================================================================
---- unittest2-py3k/unittest2/compatibility.py	(revision 0)
-+++ unittest2-py3k/unittest2/compatibility.py	(revision 0)
+--- unittest2/compatibility.py	(revision 0)
++++ unittest2/compatibility.py	(revision 0)
 @@ -0,0 +1,25 @@
 +try:
 +    from functools import cmp_to_key
@@ -360,10 +360,10 @@ Index: unittest2-py3k/unittest2/compatibility.py
 +                raise TypeError('hash not implemented')
 +        return K
 +
-Index: unittest2-py3k/unittest2/case.py
+Index: unittest2/case.py
 ===================================================================
---- unittest2-py3k/unittest2/case.py	(revision 86724)
-+++ unittest2-py3k/unittest2/case.py	(working copy)
+--- unittest2/case.py	(revision 86724)
++++ unittest2/case.py	(working copy)
 @@ -6,6 +6,7 @@
  import pprint
  import re
@@ -381,10 +381,10 @@ Index: unittest2-py3k/unittest2/case.py
      """A class whose instances are single test cases.
  
      By default, the test code itself should be placed in a method named
-Index: unittest2-py3k/unittest2/__init__.py
+Index: unittest2/__init__.py
 ===================================================================
---- unittest2-py3k/unittest2/__init__.py	(revision 86724)
-+++ unittest2-py3k/unittest2/__init__.py	(working copy)
+--- unittest2/__init__.py	(revision 86724)
++++ unittest2/__init__.py	(working copy)
 @@ -9,9 +9,9 @@
  
  Simple usage:
@@ -406,10 +406,10 @@ Index: unittest2-py3k/unittest2/__init__.py
  
  Further information is available in the bundled documentation, and from
  
-Index: unittest2-py3k/unittest2/loader.py
+Index: unittest2/loader.py
 ===================================================================
---- unittest2-py3k/unittest2/loader.py	(revision 86724)
-+++ unittest2-py3k/unittest2/loader.py	(working copy)
+--- unittest2/loader.py	(revision 86724)
++++ unittest2/loader.py	(working copy)
 @@ -5,11 +5,12 @@
  import sys
  import traceback
