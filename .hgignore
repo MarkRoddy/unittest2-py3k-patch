@@ -1,5 +1,5 @@
 syntax: glob
 *.pyc
 *~
-unittest2-py3k/unittest2
+unittest2
 
