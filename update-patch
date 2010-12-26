@@ -1,0 +1,6 @@
+#!/bin/sh
+
+LIB=unittest2
+PATCH_FILE=unittest2-py3k.patch
+
+svn diff $LIB > $PATCH_FILE
