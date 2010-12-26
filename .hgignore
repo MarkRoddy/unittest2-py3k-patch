@@ -2,4 +2,7 @@ syntax: glob
 *.pyc
 *~
 unittest2
+.tox
+unittest2py3k.egg-info
+
 
