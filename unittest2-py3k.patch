@@ -51,6 +51,14 @@ Index: unittest2/test/test_loader.py
          sys.modules.pop(module_name, None)
  
          loader = unittest.TestLoader()
+@@ -1290,3 +1290,7 @@
+     def test_suiteClass__default_value(self):
+         loader = unittest.TestLoader()
+         self.assertTrue(loader.suiteClass is unittest.TestSuite)
++
++    def testBaseClassInheritance(self):
++        import unittest as unittestorig
++        self.assertTrue(issubclass(unittest.TestLoader, unittestorig.TestLoader))
 Index: unittest2/test/test_discovery.py
 ===================================================================
 --- unittest2/test/test_discovery.py	(revision 87491)
@@ -95,7 +103,17 @@ Index: unittest2/test/test_program.py
          self.assertTrue(self.wasRun)
          self.assertEqual(suite._tests, tests)
  
-@@ -255,7 +255,7 @@
+@@ -91,6 +91,9 @@
+             testRunner=unittest.TextTestRunner(stream=io.StringIO()),
+             testLoader=self.FooBarLoader())
+ 
++    def testBaseClassInheritance(self):
++        import unittest as unittestorig
++        self.assertTrue(issubclass(unittest.TestProgram, unittestorig.TestProgram))
+ 
+ class InitialisableProgram(unittest.TestProgram):
+     exit = False
+@@ -255,7 +258,7 @@
          self.assertIs(program.result, RESULT)
  
      def testCatchBreakInstallsHandler(self):
@@ -104,6 +122,13 @@ Index: unittest2/test/test_program.py
          original = module.installHandler
          def restore():
              module.installHandler = original
+@@ -353,6 +356,5 @@
+         # for invalid filenames should we raise a useful error rather than
+         # leaving the current error message (import of filename fails) in place?
+ 
+-
+ if __name__ == '__main__':
+     unittest.main()
 Index: unittest2/test/test_runner.py
 ===================================================================
 --- unittest2/test/test_runner.py	(revision 87491)
@@ -150,6 +175,14 @@ Index: unittest2/test/test_case.py
      def testAssertSetEqual(self):
          set1 = set()
          set2 = set()
+@@ -1221,3 +1225,7 @@
+             klass('test_something').run(result)
+             self.assertEqual(len(result.errors), 1)
+             self.assertEqual(result.testsRun, 1)
++
++    def testBaseClassInheritance(self):
++        import unittest as unittestorig
++        self.assertTrue(issubclass(unittest.TestCase, unittestorig.TestCase))
 Index: unittest2/test/support.py
 ===================================================================
 --- unittest2/test/support.py	(revision 87491)
@@ -272,7 +305,19 @@ Index: unittest2/test/test_result.py
  
  class Test_TestResult(unittest.TestCase):
      # Note: there are not separate tests for TestResult.wasSuccessful(),
-@@ -313,7 +312,7 @@
+@@ -294,7 +293,11 @@
+             self.assertTrue(result.failfast)
+         result = runner.run(test)
+ 
++    def testBaseClassInheritance(self):
++        import unittest as unittestorig
++        self.assertTrue(issubclass(unittest.TestResult, unittestorig.TestResult))
+ 
++
+ classDict = dict(unittest.TestResult.__dict__)
+ for m in ('addSkip', 'addExpectedFailure', 'addUnexpectedSuccess',
+            '__init__'):
+@@ -313,7 +316,7 @@
  class Test_OldTestResult(unittest.TestCase):
  
      def assertOldResultWarning(self, test, failures):
@@ -737,6 +782,27 @@ Index: unittest2/util.py
  
  __unittest = True
  
+Index: unittest2/result.py
+===================================================================
+--- unittest2/result.py	(revision 87491)
++++ unittest2/result.py	(working copy)
+@@ -4,6 +4,7 @@
+ import io
+ import sys
+ import traceback
++import unittest
+ 
+ from . import util
+ from functools import wraps
+@@ -22,7 +23,7 @@
+ STDERR_LINE = '\nStderr:\n%s'
+ 
+ 
+-class TestResult(object):
++class TestResult(unittest.TestResult):
+     """Holder for test result information.
+ 
+     Test results are automatically managed by the TestCase and TestSuite
 Index: unittest2/__init__.py
 ===================================================================
 --- unittest2/__init__.py	(revision 87491)
@@ -771,6 +837,27 @@ Index: unittest2/__init__.py
  __unittest = True
  
  from .result import TestResult
+Index: unittest2/main.py
+===================================================================
+--- unittest2/main.py	(revision 87491)
++++ unittest2/main.py	(working copy)
+@@ -3,6 +3,7 @@
+ import sys
+ import os
+ import types
++import unittest
+ 
+ from . import loader, runner
+ from .signals import installHandler
+@@ -77,7 +78,7 @@
+ def _convert_names(names):
+     return [_convert_name(name) for name in names]
+ 
+-class TestProgram(object):
++class TestProgram(unittest.TestProgram):
+     """A command-line program that runs a set of tests; this is primarily
+        for making test modules conveniently executable.
+     """
 Index: unittest2/loader.py
 ===================================================================
 --- unittest2/loader.py	(revision 87491)
@@ -789,6 +876,15 @@ Index: unittest2/loader.py
  
  __unittest = True
  
+@@ -35,7 +36,7 @@
+     return suiteClass((TestClass(methodname),))
+ 
+ 
+-class TestLoader(object):
++class TestLoader(unittest.TestLoader):
+     """
+     This class is responsible for loading tests according to various criteria
+     and returning them wrapped in a TestSuite
 @@ -142,7 +143,7 @@
          testFnNames = testFnNames = list(filter(isTestMethod,
                                                  dir(testCaseClass)))
