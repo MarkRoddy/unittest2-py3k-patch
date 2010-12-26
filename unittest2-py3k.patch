@@ -139,6 +139,17 @@ Index: unittest2/test/test_case.py
  
  from .support import (
      TestEquality, TestHashing, LoggingResult,
+@@ -734,6 +734,10 @@
+         expected = {(3,1,'a'), (1,3,'b'), (1,0,'d'), (0,1,'e')}
+         self.assertEqual(diffs, expected)
+ 
++    def testCountEqualAlias(self):
++        self.assertTrue(hasattr(unittest.TestCase, 'assertItemsEqual'))
++        self.assertTrue(unittest.TestCase.assertItemsEqual is unittest.TestCase.assertCountEqual)
++
+     def testAssertSetEqual(self):
+         set1 = set()
+         set2 = set()
 Index: unittest2/test/support.py
 ===================================================================
 --- unittest2/test/support.py	(revision 87488)
@@ -703,6 +714,16 @@ Index: unittest2/case.py
          except TypeError:
              # Handle case with unhashable elements
              differences = _count_diff_all_purpose(actual_seq, expected_seq)
+@@ -1037,6 +1040,9 @@
+             msg = self._formatMessage(msg, standardMsg)
+             self.fail(msg)
+ 
++    # Alias for backwards compatibility
++    assertItemsEqual = assertCountEqual
++
+     def assertMultiLineEqual(self, first, second, msg=None):
+         """Assert that two multi-line strings are equal."""
+         self.assertIsInstance(first, str, 'First argument is not a string')
 Index: unittest2/util.py
 ===================================================================
 --- unittest2/util.py	(revision 87488)
