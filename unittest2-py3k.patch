@@ -1,6 +1,6 @@
 Index: unittest2/test/test_suite.py
 ===================================================================
---- unittest2/test/test_suite.py	(revision 87491)
+--- unittest2/test/test_suite.py	(revision 87556)
 +++ unittest2/test/test_suite.py	(working copy)
 @@ -1,4 +1,4 @@
 -import unittest
@@ -8,9 +8,21 @@ Index: unittest2/test/test_suite.py
  
  import sys
  from .support import LoggingResult, TestEquality
+@@ -362,7 +362,11 @@
+         # reusing results should be permitted even if abominable
+         self.assertFalse(result._testRunEntered)
+ 
++    def testBaseClassInheritance(self):
++        import unittest as unittestorig
++        self.assertTrue(issubclass(unittest.TestSuite, unittestorig.TestSuite))
+ 
+ 
++
+ if __name__ == '__main__':
+     unittest.main()
 Index: unittest2/test/test_assertions.py
 ===================================================================
---- unittest2/test/test_assertions.py	(revision 87491)
+--- unittest2/test/test_assertions.py	(revision 87556)
 +++ unittest2/test/test_assertions.py	(working copy)
 @@ -1,6 +1,6 @@
  import datetime
@@ -22,7 +34,7 @@ Index: unittest2/test/test_assertions.py
  class Test_Assertions(unittest.TestCase):
 Index: unittest2/test/test_loader.py
 ===================================================================
---- unittest2/test/test_loader.py	(revision 87491)
+--- unittest2/test/test_loader.py	(revision 87556)
 +++ unittest2/test/test_loader.py	(working copy)
 @@ -2,7 +2,7 @@
  import types
@@ -61,7 +73,7 @@ Index: unittest2/test/test_loader.py
 +        self.assertTrue(issubclass(unittest.TestLoader, unittestorig.TestLoader))
 Index: unittest2/test/test_discovery.py
 ===================================================================
---- unittest2/test/test_discovery.py	(revision 87491)
+--- unittest2/test/test_discovery.py	(revision 87556)
 +++ unittest2/test/test_discovery.py	(working copy)
 @@ -2,7 +2,7 @@
  import re
@@ -83,7 +95,7 @@ Index: unittest2/test/test_discovery.py
  
 Index: unittest2/test/test_program.py
 ===================================================================
---- unittest2/test/test_program.py	(revision 87491)
+--- unittest2/test/test_program.py	(revision 87556)
 +++ unittest2/test/test_program.py	(working copy)
 @@ -2,7 +2,7 @@
  
@@ -131,7 +143,7 @@ Index: unittest2/test/test_program.py
      unittest.main()
 Index: unittest2/test/test_runner.py
 ===================================================================
---- unittest2/test/test_runner.py	(revision 87491)
+--- unittest2/test/test_runner.py	(revision 87556)
 +++ unittest2/test/test_runner.py	(working copy)
 @@ -4,7 +4,7 @@
  import pickle
@@ -153,7 +165,7 @@ Index: unittest2/test/test_runner.py
          # required by test_multiprocessing under Windows (in verbose mode).
 Index: unittest2/test/test_case.py
 ===================================================================
---- unittest2/test/test_case.py	(revision 87491)
+--- unittest2/test/test_case.py	(revision 87556)
 +++ unittest2/test/test_case.py	(working copy)
 @@ -9,7 +9,7 @@
  from copy import deepcopy
@@ -185,7 +197,7 @@ Index: unittest2/test/test_case.py
 +        self.assertTrue(issubclass(unittest.TestCase, unittestorig.TestCase))
 Index: unittest2/test/support.py
 ===================================================================
---- unittest2/test/support.py	(revision 87491)
+--- unittest2/test/support.py	(revision 87556)
 +++ unittest2/test/support.py	(working copy)
 @@ -1,6 +1,11 @@
 -import unittest
@@ -289,7 +301,7 @@ Index: unittest2/test/support.py
 +    return _filterwarnings(filters, quiet)
 Index: unittest2/test/test_result.py
 ===================================================================
---- unittest2/test/test_result.py	(revision 87491)
+--- unittest2/test/test_result.py	(revision 87556)
 +++ unittest2/test/test_result.py	(working copy)
 @@ -2,11 +2,10 @@
  import sys
@@ -328,7 +340,7 @@ Index: unittest2/test/test_result.py
              test.run(result)
 Index: unittest2/test/test_functiontestcase.py
 ===================================================================
---- unittest2/test/test_functiontestcase.py	(revision 87491)
+--- unittest2/test/test_functiontestcase.py	(revision 87556)
 +++ unittest2/test/test_functiontestcase.py	(working copy)
 @@ -1,4 +1,4 @@
 -import unittest
@@ -338,7 +350,7 @@ Index: unittest2/test/test_functiontestcase.py
  
 Index: unittest2/test/test_setups.py
 ===================================================================
---- unittest2/test/test_setups.py	(revision 87491)
+--- unittest2/test/test_setups.py	(revision 87556)
 +++ unittest2/test/test_setups.py	(working copy)
 @@ -1,7 +1,7 @@
  import io
@@ -351,7 +363,7 @@ Index: unittest2/test/test_setups.py
  def resultFactory(*_):
 Index: unittest2/test/test_break.py
 ===================================================================
---- unittest2/test/test_break.py	(revision 87491)
+--- unittest2/test/test_break.py	(revision 87556)
 +++ unittest2/test/test_break.py	(working copy)
 @@ -5,7 +5,7 @@
  import signal
@@ -364,7 +376,7 @@ Index: unittest2/test/test_break.py
  @unittest.skipUnless(hasattr(os, 'kill'), "Test requires os.kill")
 Index: unittest2/test/test_skipping.py
 ===================================================================
---- unittest2/test/test_skipping.py	(revision 87491)
+--- unittest2/test/test_skipping.py	(revision 87556)
 +++ unittest2/test/test_skipping.py	(working copy)
 @@ -1,4 +1,4 @@
 -import unittest
@@ -374,7 +386,7 @@ Index: unittest2/test/test_skipping.py
  
 Index: unittest2/test/_test_warnings.py
 ===================================================================
---- unittest2/test/_test_warnings.py	(revision 87491)
+--- unittest2/test/_test_warnings.py	(revision 87556)
 +++ unittest2/test/_test_warnings.py	(working copy)
 @@ -12,7 +12,7 @@
  
@@ -387,9 +399,26 @@ Index: unittest2/test/_test_warnings.py
  def warnfun():
 Index: unittest2/suite.py
 ===================================================================
---- unittest2/suite.py	(revision 87491)
+--- unittest2/suite.py	(revision 87556)
 +++ unittest2/suite.py	(working copy)
-@@ -38,7 +38,7 @@
+@@ -1,6 +1,7 @@
+ """TestSuite"""
+ 
+ import sys
++import unittest
+ 
+ from . import case
+ from . import util
+@@ -8,7 +9,7 @@
+ __unittest = True
+ 
+ 
+-class BaseTestSuite(object):
++class BaseTestSuite(unittest.TestSuite):
+     """A simple test suite that doesn't provide class or module shared fixtures.
+     """
+     def __init__(self, tests=()):
+@@ -38,7 +39,7 @@
      def addTest(self, test):
          # sanity checks
          if not hasattr(test, '__call__'):
@@ -726,7 +755,7 @@ Index: unittest2/compatibility.py
 +            return result
 Index: unittest2/case.py
 ===================================================================
---- unittest2/case.py	(revision 87491)
+--- unittest2/case.py	(revision 87556)
 +++ unittest2/case.py	(working copy)
 @@ -7,7 +7,10 @@
  import re
@@ -771,7 +800,7 @@ Index: unittest2/case.py
          self.assertIsInstance(first, str, 'First argument is not a string')
 Index: unittest2/util.py
 ===================================================================
---- unittest2/util.py	(revision 87491)
+--- unittest2/util.py	(revision 87556)
 +++ unittest2/util.py	(working copy)
 @@ -1,6 +1,7 @@
  """Various utility functions."""
@@ -784,7 +813,7 @@ Index: unittest2/util.py
  
 Index: unittest2/result.py
 ===================================================================
---- unittest2/result.py	(revision 87491)
+--- unittest2/result.py	(revision 87556)
 +++ unittest2/result.py	(working copy)
 @@ -4,6 +4,7 @@
  import io
@@ -805,7 +834,7 @@ Index: unittest2/result.py
      Test results are automatically managed by the TestCase and TestSuite
 Index: unittest2/__init__.py
 ===================================================================
---- unittest2/__init__.py	(revision 87491)
+--- unittest2/__init__.py	(revision 87556)
 +++ unittest2/__init__.py	(working copy)
 @@ -9,9 +9,9 @@
  
@@ -839,7 +868,7 @@ Index: unittest2/__init__.py
  from .result import TestResult
 Index: unittest2/main.py
 ===================================================================
---- unittest2/main.py	(revision 87491)
+--- unittest2/main.py	(revision 87556)
 +++ unittest2/main.py	(working copy)
 @@ -3,6 +3,7 @@
  import sys
@@ -860,7 +889,7 @@ Index: unittest2/main.py
      """
 Index: unittest2/loader.py
 ===================================================================
---- unittest2/loader.py	(revision 87491)
+--- unittest2/loader.py	(revision 87556)
 +++ unittest2/loader.py	(working copy)
 @@ -5,11 +5,12 @@
  import sys
